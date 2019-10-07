@@ -1,6 +1,7 @@
 import Vue from "vue"
 import { Auth } from "aws-amplify"
 import { CognitoUser } from "@aws-amplify/auth"
+import axios from "axios"
 
 export default Vue.extend({
   data() {
@@ -8,7 +9,8 @@ export default Vue.extend({
       title: "Token Getter",
       userID: "",
       password: "",
-      token: ""
+      token: "",
+      responseData: null
     }
   },
   methods: {
@@ -20,6 +22,20 @@ export default Vue.extend({
           .getSignInUserSession()
           .getIdToken()
           .getJwtToken()
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async execApi(): Promise<void> {
+      try {
+        this.responseData = await axios.get(
+          "https://rg2qxmixl5.execute-api.ap-northeast-1.amazonaws.com/dev/hello",
+          {
+            headers: {
+              Authorization: this.token
+            }
+          }
+        )
       } catch (err) {
         console.error(err)
       }

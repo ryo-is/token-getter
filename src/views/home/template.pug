@@ -8,3 +8,7 @@ v-container.home
     v-btn(color="primary" large @click="signin()") SignIn
     v-col(cols=12)
     v-col.token-text(cols=10) {{ token }}
+    v-col(cols=12)
+    v-btn(color="success" large @click="execApi()") Exec API
+    v-col(cols=12)
+    v-col.token-text(cols=10) {{ responseData }}
